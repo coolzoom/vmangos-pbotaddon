@@ -45,8 +45,12 @@ function SubPartyBotAdd(self, arg)
 	SendChatMessage(CMD_PARTYBOT_ADD .. arg);
 end
 
-function SubPartyBot2(self)
-	SendChatMessage(CMD_PARTYBOT_ADD .. self..text);
+function SubBattleBotAdd(self, arg1, arg2)
+	SendChatMessage(CMD_BATTLEBOT_ADD .. arg1 .. " " .. arg2);
+end
+
+function SubBattleGo(self, arg)
+	SendChatMessage(CMD_BATTLEGROUND_GO .. arg);
 end
 
 function CloseFrame()

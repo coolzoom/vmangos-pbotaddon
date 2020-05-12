@@ -40,7 +40,7 @@
 		</Layers>
 		<!-- buttons frame -->
 		<Frames>
-		    <!-- first column -->
+		    <!-- left 1 column -->
 			<Button name="PartyBotClone" inherits="UIPanelButtonTemplate" text="Clone Bot">
 				<Size x="100" y="30" />
 				<Anchors>
@@ -74,7 +74,7 @@
 			</Button>
 			
 
-			<!-- second column -->
+			<!-- left 2 column -->
 			<Button name="PartyBotAdd" inherits="UIPanelButtonTemplate" text="Add Warrior">
 				<Size x="100" y="30" />
 				<Anchors>
@@ -91,6 +91,154 @@
 				</Scripts>
 			</Button>
 	        
+			
+			<!-- right 1 column -->
+			<Button name="BattleBotAddwarsonghorde" inherits="UIPanelButtonTemplate" text="warsong horde">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-10" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubBattleBotAdd(self, "warsong", "horde");
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="arathi horde">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-10" y="-50"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubBattleBotAdd(self, "arathi", "horde");
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="alterac horde">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-10" y="-80"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubBattleBotAdd(self, "alterac", "horde");
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			
+			<!-- right 2 column -->
+			<Button name="BattleBotAddwarsonghorde" inherits="UIPanelButtonTemplate" text="warsong alliance">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-120" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubBattleBotAdd(self, "warsong", "alliance");
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="arathi alliance">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-120" y="-50"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubBattleBotAdd(self, "arathi", "alliance");
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="alterac alliance">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-120" y="-80"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubBattleBotAdd(self, "alterac", "alliance");
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<!-- right 3 column -->
+			<Button name="BattleGowarsong" inherits="UIPanelButtonTemplate" text="go warsong">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-230" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubBattleGo(self, "warsong");
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="go arathi">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-230" y="-50"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubBattleGo(self, "arathi");
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="go alterac">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-230" y="-80"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubBattleGo(self, "alterac");
+					</OnClick>
+				</Scripts>
+			</Button>
 			
         	<Button name="CloseButton" inherits="UIPanelButtonTemplate" text="Close">
 				<Size x="120" y="30" />
