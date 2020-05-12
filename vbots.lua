@@ -23,7 +23,7 @@ CLASS_PRIEST  = "priest"  -- 5 => '牧师',
 CLASS_SHAMAN  = "shaman" -- 7 => '萨满',
 CLASS_MAGE    = "mage"  -- 8 => '法师',
 CLASS_WARLOCK = "warlock"  -- 9 => '术士',
-CLASS_DRUID   = "driod"  -- 11 => '德鲁伊');
+CLASS_DRUID   = "druid"  -- 11 => '德鲁伊');
 
 -- cmd
 CMD_PARTYBOT_CLONE = ".partybot clone";
@@ -39,6 +39,10 @@ end
 
 function SubPartyBotRemove(self)
 	SendChatMessage(CMD_PARTYBOT_REMOVE);
+end
+
+function SubPartyBotSetRole(self, arg)
+	SendChatMessage(CMD_PARTYBOT_SETROLE .. arg);
 end
 
 function SubPartyBotAdd(self, arg)
