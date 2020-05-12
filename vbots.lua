@@ -33,6 +33,9 @@ CMD_PARTYBOT_SETROLE = ".partybot setrole ";
 CMD_BATTLEGROUND_GO = ".go ";
 CMD_BATTLEBOT_ADD = ".battlebot add ";
 
+CMD_PARTYBOT_GEAR = ".character premade gear ";
+CMD_PARTYBOT_SPEC = ".character premade spec ";
+
 function SubPartyBotClone(self)
 	SendChatMessage(CMD_PARTYBOT_CLONE);
 end
@@ -47,6 +50,9 @@ end
 
 function SubPartyBotAdd(self, arg)
 	SendChatMessage(CMD_PARTYBOT_ADD .. arg);
+	DEFAULT_CHAT_FRAME:AddMessage("bot added. please use .character premade gear and .character premade spec to set bot, avalilable set show below");
+	SendChatMessage(CMD_PARTYBOT_GEAR);
+	SendChatMessage(CMD_PARTYBOT_SPEC);
 end
 
 function SubBattleBotAdd(self, arg1, arg2)
