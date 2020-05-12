@@ -25,7 +25,7 @@
         <Layers>
 			<Layer level="OVERLAY">
 			    <!-- upper left -->
-				<FontString name="PartyBot" inherits="GameFontNormal" text="PartyBot Command">
+				<FontString name="PartyBot" inherits="GameFontNormal" text="组队机器人命令">
 						<Size x="220" y="20" />
 						<Anchors>
 							<Anchor point="TOPLEFT">
@@ -37,7 +37,7 @@
 				</FontString>
 			
 			    <!-- middle -->
-				<FontString name="partybotsetrole" inherits="GameFontNormal" text="role">
+				<FontString name="partybotsetrole" inherits="GameFontNormal" text="职责">
 						<Size x="220" y="20" />
 						<Anchors>
 							<Anchor  point="CENTER" relativePoint="TOP">
@@ -49,7 +49,7 @@
 				</FontString>
 				
 				<!-- upper right -->
-				<FontString name="BattleBot" inherits="GameFontNormal" text="BattleBot command">
+				<FontString name="BattleBot" inherits="GameFontNormal" text="战场机器人命令">
 						<Size x="220" y="20" />
 						<Anchors>
 							<Anchor point="TOPRIGHT">
@@ -76,7 +76,7 @@
 		<!-- buttons frame -->
 		<Frames>
 			<!-- left 1 column -->
-			<Button name="PartyBotAddWarrior" inherits="UIPanelButtonTemplate" text="Add Warrior">
+			<Button name="PartyBotAddWarrior" inherits="UIPanelButtonTemplate" text="加战士">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -91,7 +91,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="PartyBotAddPaladin" inherits="UIPanelButtonTemplate" text="Add Paladin">
+			<Button name="PartyBotAddPaladin" inherits="UIPanelButtonTemplate" text="加圣骑">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -106,7 +106,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="PartyBotAddHunter" inherits="UIPanelButtonTemplate" text="Add Hunter">
+			<Button name="PartyBotAddHunter" inherits="UIPanelButtonTemplate" text="加猎人">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -122,7 +122,7 @@
 				</Scripts>
 			</Button>
 			<!-- left 2 column -->
-			<Button name="PartyBotAddRouge" inherits="UIPanelButtonTemplate" text="Add Rouge">
+			<Button name="PartyBotAddRouge" inherits="UIPanelButtonTemplate" text="加盗贼">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -137,7 +137,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="PartyBotAddPriest" inherits="UIPanelButtonTemplate" text="Add Priest">
+			<Button name="PartyBotAddPriest" inherits="UIPanelButtonTemplate" text="加牧师">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -152,7 +152,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="PartyBotAddShaman" inherits="UIPanelButtonTemplate" text="Add Shaman">
+			<Button name="PartyBotAddShaman" inherits="UIPanelButtonTemplate" text="加萨满">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -168,7 +168,7 @@
 				</Scripts>
 			</Button>			
 			<!-- left 3 column -->
-			<Button name="PartyBotAddMage" inherits="UIPanelButtonTemplate" text="Add Mage">
+			<Button name="PartyBotAddMage" inherits="UIPanelButtonTemplate" text="加法师">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -183,7 +183,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="PartyBotAddWarlock" inherits="UIPanelButtonTemplate" text="Add Warlock">
+			<Button name="PartyBotAddWarlock" inherits="UIPanelButtonTemplate" text="加术士">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -198,7 +198,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="PartyBotAddDruid" inherits="UIPanelButtonTemplate" text="Add Druid">
+			<Button name="PartyBotAddDruid" inherits="UIPanelButtonTemplate" text="加小德">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -214,7 +214,7 @@
 				</Scripts>
 			</Button>	        
 			<!-- center column -->
-			<Button name="PartyBotClone" inherits="UIPanelButtonTemplate" text="Clone Bot">
+			<Button name="PartyBotClone" inherits="UIPanelButtonTemplate" text="克隆">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor  point="CENTER" relativePoint="TOP">
@@ -230,7 +230,7 @@
 				</Scripts>
 			</Button>
 			
-			<Button name="PartyBotRemove" inherits="UIPanelButtonTemplate" text="Remove Bot">
+			<Button name="PartyBotRemove" inherits="UIPanelButtonTemplate" text="移除">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor  point="CENTER" relativePoint="TOP">
@@ -246,7 +246,7 @@
 				</Scripts>
 			</Button>
 							<!-- center column lower small button-->
-			<Button name="PartyBotSetDPS" inherits="UIPanelButtonTemplate" text="dps">
+			<Button name="PartyBotSetDPS" inherits="UIPanelButtonTemplate" text="输出">
 				<Size x="30" y="20" />
 				<Anchors>
 					<Anchor  point="CENTER" relativePoint="TOP">
@@ -262,7 +262,7 @@
 				</Scripts>
 			</Button>
 
-			<Button name="PartyBotSetTank" inherits="UIPanelButtonTemplate" text="tank">
+			<Button name="PartyBotSetTank" inherits="UIPanelButtonTemplate" text="坦克">
 				<Size x="30" y="20" />
 				<Anchors>
 					<Anchor  point="CENTER" relativePoint="TOP">
@@ -278,7 +278,7 @@
 				</Scripts>
 			</Button>
 
-			<Button name="PartyBotSetHealer" inherits="UIPanelButtonTemplate" text="heal">
+			<Button name="PartyBotSetHealer" inherits="UIPanelButtonTemplate" text="治疗">
 				<Size x="30" y="20" />
 				<Anchors>
 					<Anchor  point="CENTER" relativePoint="TOP">
@@ -295,7 +295,7 @@
 			</Button>
 			
 			<!-- right 1 column -->
-			<Button name="BattleBotAddwarsonghorde" inherits="UIPanelButtonTemplate" text="warsong horde">
+			<Button name="BattleBotAddwarsonghorde" inherits="UIPanelButtonTemplate" text="加战歌BL">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
@@ -311,7 +311,7 @@
 				</Scripts>
 			</Button>
 			
-			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="arathi horde">
+			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="加阿拉希BL">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
@@ -327,7 +327,7 @@
 				</Scripts>
 			</Button>
 			
-			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="alterac horde">
+			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="加奥山BL">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
@@ -345,7 +345,7 @@
 			
 			
 			<!-- right 2 column -->
-			<Button name="BattleBotAddwarsonghorde" inherits="UIPanelButtonTemplate" text="warsong alliance">
+			<Button name="BattleBotAddwarsonghorde" inherits="UIPanelButtonTemplate" text="加战歌LM">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
@@ -361,7 +361,7 @@
 				</Scripts>
 			</Button>
 			
-			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="arathi alliance">
+			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="加阿拉希LM">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
@@ -377,7 +377,7 @@
 				</Scripts>
 			</Button>
 			
-			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="alterac alliance">
+			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="加奥山LM">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
@@ -394,7 +394,7 @@
 			</Button>
 			
 			<!-- right 3 column -->
-			<Button name="BattleGowarsong" inherits="UIPanelButtonTemplate" text="queue warsong">
+			<Button name="BattleGowarsong" inherits="UIPanelButtonTemplate" text="排战歌">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
@@ -410,7 +410,7 @@
 				</Scripts>
 			</Button>
 			
-			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="queue arathi">
+			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="排阿拉希">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
@@ -426,7 +426,7 @@
 				</Scripts>
 			</Button>
 			
-			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="queue alterac">
+			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="排奥山">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
@@ -442,7 +442,7 @@
 				</Scripts>
 			</Button>
 			
-        	<Button name="CloseButton" inherits="UIPanelButtonTemplate" text="Close">
+        	<Button name="CloseButton" inherits="UIPanelButtonTemplate" text="关闭">
 				<Size x="120" y="30" />
 				<Anchors>
 					<Anchor point="BOTTOM">
