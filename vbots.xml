@@ -1,11 +1,11 @@
 <Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Frame.lua" />
 	<Frame name="vbotsFrame" parent="UIParent" toplevel="true" enableMouse="true">
-		<Size x="770" y="140" />
+		<Size x="770" y="130" />
 		<Anchors>
 			<Anchor point="BOTTOMRIGHT">
 				<Offset>
-					<AbsDimension x="0" y="90"/>
+					<AbsDimension x="-90" y="90"/>
 				</Offset>
 			</Anchor>
 		</Anchors>
@@ -61,7 +61,7 @@
 				</FontString>
 				
 				<!-- bottom right -->
-				<FontString name="AddBot" inherits="GameFontNormal" text="vmangos bot by coolzoom">
+				<FontString name="AddBot" inherits="GameFontNormal" text="vmangos bot addon by coolzoom">
 						<Size x="220" y="20" />
 						<Anchors>
 							<Anchor point="BOTTOMRIGHT">
