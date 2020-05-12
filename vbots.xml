@@ -1,0 +1,126 @@
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Frame.lua" />
+	<Frame name="vbotsFrame" parent="UIParent" toplevel="true" enableMouse="true">
+		<Size x="770" y="120" />
+		<Anchors>
+			<Anchor point="BOTTOMRIGHT">
+				<Offset>
+					<AbsDimension x="0" y="90"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+		<!-- overlay labels layer for below buttons frame-->
+        <Layers>
+			<Layer level="OVERLAY">
+			    <!-- upper left -->
+				<FontString name="AddBot" inherits="GameFontNormal" text="vmangos bot command">
+						<Size x="220" y="20" />
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="0" y="-2"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+				</FontString>
+			
+			</Layer>
+		</Layers>
+		<!-- buttons frame -->
+		<Frames>
+		    <!-- first column -->
+			<Button name="PartyBotClone" inherits="UIPanelButtonTemplate" text="Clone Bot">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="10" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubPartyBotClone(self);
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="PartyBotRemove" inherits="UIPanelButtonTemplate" text="Remove Bot">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="10" y="-50"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubPartyBotRemove(self);
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+
+			<!-- second column -->
+			<Button name="PartyBotAdd" inherits="UIPanelButtonTemplate" text="Add Warrior">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="120" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubPartyBotAdd(self, "warrior");
+					</OnClick>
+				</Scripts>
+			</Button>
+	        
+			
+        	<Button name="CloseButton" inherits="UIPanelButtonTemplate" text="Close">
+				<Size x="120" y="30" />
+				<Anchors>
+					<Anchor point="BOTTOM">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						CloseFrame();
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+	</Frame>
+	<Button name="AttributeOptions" inherits="GameMenuButtonTemplate" parent="GameMenuFrame" text="VBOTS">
+		<Anchors>
+			<Anchor point="CENTER" relativePoint="BOTTOM">>
+				<Offset>
+					<AbsDimension x="0" y="10"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnClick>
+				OpenFrame();
+			</OnClick>
+		</Scripts>
+	</Button>
+</Ui>
