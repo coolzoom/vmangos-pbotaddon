@@ -50,7 +50,7 @@ end
 
 function SubPartyBotAdd(self, arg)
 	SendChatMessage(CMD_PARTYBOT_ADD .. arg);
-	DEFAULT_CHAT_FRAME:AddMessage("bot added. please use .character premade gear and .character premade spec to set bot, avalilable set show below");
+	DEFAULT_CHAT_FRAME:AddMessage("请选中机器人使用 .character premade gear +数字 设置装备 .character premade spec + 数字 设置天赋");
 	SendChatMessage(CMD_PARTYBOT_GEAR);
 	SendChatMessage(CMD_PARTYBOT_SPEC);
 end

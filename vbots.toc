@@ -1,7 +1,7 @@
 ## Interface: 11200
 ## Title: vbot
 ## Notes: vmangos bot panel, open gui from Main Menu
-## Notes-zhCN: vmangos bot panel, open gui from Main Menu
+## Notes-zhCN: vmangos机器人界面，在主菜单可以调用
 ## Author: coolzoom
 ## DefaultState: Enabled
 ## Version: 1.0.0
