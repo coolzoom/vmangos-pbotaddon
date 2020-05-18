@@ -23,8 +23,8 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\AtlasButton-Up"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\AtlasButton-Down"/>
+				<NormalTexture file="Interface\AddOns\vbots\img\vmButton"/>
+				<PushedTexture file="Interface\AddOns\vbots\img\vmButton-pushed"/>
 				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
 				<Scripts>
 					<OnLoad>
@@ -75,7 +75,7 @@
 			</Anchor>
 		</Anchors>
 
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border"  tile="true">
 			<BackgroundInsets>
 				<AbsInset left="11" right="12" top="12" bottom="11" />
 			</BackgroundInsets>
