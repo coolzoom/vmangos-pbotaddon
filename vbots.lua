@@ -36,6 +36,7 @@ CMD_BATTLEBOT_ADD = ".battlebot add ";
 CMD_PARTYBOT_GEAR = ".character premade gear ";
 CMD_PARTYBOT_SPEC = ".character premade spec ";
 
+-- command frame
 function SubPartyBotClone(self)
 	SendChatMessage(CMD_PARTYBOT_CLONE);
 end
@@ -74,3 +75,67 @@ function OpenFrame()
 	vbotsFrame:Show();
 end
 
+-- minimap button
+local vbotsFrameShown = false
+local vbotsButtonPosition = 268
+
+function vbotsButtonFrame_OnClick()
+	vbotsButtonFrame_Toggle();
+end
+
+function vbotsButtonFrame_Init()
+	if(vbotsFrameShown) then
+		vbotsFrame:Show();
+	else
+		vbotsFrame:Hide();
+	end
+end
+
+function vbotsButtonFrame_Toggle()
+	if(vbotsFrame:IsVisible()) then
+		vbotsFrame:Hide();
+		vbotsFrameShown = false;
+	else
+		vbotsFrame:Show();
+		vbotsFrameShown = true;
+	end
+	vbotsButtonFrame_Init();
+end
+
+function vbotsButtonFrame_OnEnter()
+    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+    GameTooltip:SetText("vmangos bot command, \n click to open/close, \n right mouse to drag me");
+    GameTooltip:Show();
+end
+
+function vbotsButtonFrame_UpdatePosition()
+	vbotsButtonFrame:SetPoint(
+		"TOPLEFT",
+		"Minimap",
+		"TOPLEFT",
+		54 - (78 * cos(vbotsButtonPosition)),
+		(78 * sin(vbotsButtonPosition)) - 55
+	);
+	vbotsButtonFrame_Init();
+end
+
+-- Thanks to Yatlas for this code
+function vbotsButtonFrame_BeingDragged()
+    -- Thanks to Gello for this code
+    local xpos,ypos = GetCursorPosition() 
+    local xmin,ymin = Minimap:GetLeft(), Minimap:GetBottom() 
+
+    xpos = xmin-xpos/UIParent:GetScale()+70 
+    ypos = ypos/UIParent:GetScale()-ymin-70 
+
+    vbotsButtonFrame_SetPosition(math.deg(math.atan2(ypos,xpos)));
+end
+
+function vbotsButtonFrame_SetPosition(v)
+    if(v < 0) then
+        v = v + 360;
+    end
+
+    vbotsButtonPosition = v;
+    vbotsButtonFrame_UpdatePosition();
+end
