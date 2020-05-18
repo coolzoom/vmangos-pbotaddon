@@ -76,7 +76,7 @@ function OpenFrame()
 end
 
 -- minimap button
-local vbotsFrameShown = false
+local vbotsFrameShown = true -- show frame by default
 local vbotsButtonPosition = 268
 
 function vbotsButtonFrame_OnClick()
@@ -84,6 +84,7 @@ function vbotsButtonFrame_OnClick()
 end
 
 function vbotsButtonFrame_Init()
+    -- show frame by default
 	if(vbotsFrameShown) then
 		vbotsFrame:Show();
 	else
