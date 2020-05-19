@@ -51,9 +51,9 @@ end
 
 function SubPartyBotAdd(self, arg)
 	SendChatMessage(CMD_PARTYBOT_ADD .. arg);
-	DEFAULT_CHAT_FRAME:AddMessage("请选中机器人使用 .character premade gear +数字 设置装备 .character premade spec + 数字 设置天赋");
-	SendChatMessage(CMD_PARTYBOT_GEAR);
-	SendChatMessage(CMD_PARTYBOT_SPEC);
+	DEFAULT_CHAT_FRAME:AddMessage("请选中机器人并点击查询可用装备和天赋");
+	-- SendChatMessage(CMD_PARTYBOT_GEAR);
+	-- SendChatMessage(CMD_PARTYBOT_SPEC);
 end
 
 function SubBattleBotAdd(self, arg1, arg2)
@@ -123,11 +123,11 @@ end
 -- Thanks to Yatlas for this code
 function vbotsButtonFrame_BeingDragged()
     -- Thanks to Gello for this code
-    local xpos,ypos = GetCursorPosition() 
-    local xmin,ymin = Minimap:GetLeft(), Minimap:GetBottom() 
+    local xpos,ypos = GetCursorPosition()
+    local xmin,ymin = Minimap:GetLeft(), Minimap:GetBottom()
 
-    xpos = xmin-xpos/UIParent:GetScale()+70 
-    ypos = ypos/UIParent:GetScale()-ymin-70 
+    xpos = xmin-xpos/UIParent:GetScale()+70
+    ypos = ypos/UIParent:GetScale()-ymin-70
 
     vbotsButtonFrame_SetPosition(math.deg(math.atan2(ypos,xpos)));
 end
