@@ -51,9 +51,9 @@ end
 
 function SubPartyBotAdd(self, arg)
 	SendChatMessage(CMD_PARTYBOT_ADD .. arg);
-	DEFAULT_CHAT_FRAME:AddMessage("bot added. please use .character premade gear and .character premade spec to set bot, avalilable set show below");
-	SendChatMessage(CMD_PARTYBOT_GEAR);
-	SendChatMessage(CMD_PARTYBOT_SPEC);
+	DEFAULT_CHAT_FRAME:AddMessage("bot added. please search available gear and spec set.");
+	-- SendChatMessage(CMD_PARTYBOT_GEAR);
+	-- SendChatMessage(CMD_PARTYBOT_SPEC);
 end
 
 function SubBattleBotAdd(self, arg1, arg2)
