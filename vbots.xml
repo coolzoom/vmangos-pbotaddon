@@ -553,7 +553,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("search available premade gear");
+						GameTooltip:SetText("查询可用预定装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
