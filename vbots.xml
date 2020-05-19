@@ -31,9 +31,9 @@
 						this:RegisterForDrag("RightButton");
 						this.dragme = false;
 					</OnLoad>
-					<OnDragStart> 
+					<OnDragStart>
 						this.dragme = true;
-					</OnDragStart> 
+					</OnDragStart>
 					<OnDragStop>
 						this.dragme = false;
 					</OnDragStop>
@@ -64,7 +64,7 @@
 			</OnEvent>
 		</Scripts>
 	</Frame>
-	
+
 	<Frame name="vbotsFrame" parent="UIParent" toplevel="true" enableMouse="true">
 		<Size x="770" y="200" />
 		<Anchors>
@@ -101,7 +101,7 @@
 							</Anchor>
 						</Anchors>
 				</FontString>
-			
+
 			    <!-- middle -->
 				<FontString name="partybotsetrole" inherits="GameFontNormal" text="职责">
 						<Size x="220" y="20" />
@@ -113,7 +113,7 @@
 							</Anchor>
 						</Anchors>
 				</FontString>
-				
+
 				<!-- upper right -->
 				<FontString name="BattleBot" inherits="GameFontNormal" text="战场机器人命令">
 						<Size x="220" y="20" />
@@ -125,7 +125,7 @@
 							</Anchor>
 						</Anchors>
 				</FontString>
-				
+
 				<!-- bottom right -->
 				<FontString name="AddBot" inherits="GameFontNormal" text="vmangos bot addon by coolzoom">
 						<Size x="220" y="20" />
@@ -137,7 +137,7 @@
 							</Anchor>
 						</Anchors>
 				</FontString>
-				
+
 				<!-- string for character premade gear-->
 				<FontString name="strCPG" inherits="GameFontNormal" text="预定义装备选项">
 						<Size x="150" y="20" />
@@ -149,7 +149,7 @@
 							</Anchor>
 						</Anchors>
 				</FontString>
-		        
+
 				<!-- string for character premade spec-->
 				<FontString name="strCPS" inherits="GameFontNormal" text="预定义天赋选项">
 						<Size x="150" y="20" />
@@ -256,7 +256,7 @@
 						SubPartyBotAdd(self, "shaman");
 					</OnClick>
 				</Scripts>
-			</Button>			
+			</Button>
 			<!-- left 3 column -->
 			<Button name="PartyBotAddMage" inherits="UIPanelButtonTemplate" text="加法师">
 				<Size x="100" y="30" />
@@ -302,14 +302,14 @@
 						SubPartyBotAdd(self, "druid");
 					</OnClick>
 				</Scripts>
-			</Button>	        
+			</Button>
 			<!-- center column -->
 			<Button name="PartyBotClone" inherits="UIPanelButtonTemplate" text="克隆">
-				<Size x="100" y="30" />
+				<Size x="50" y="30" />
 				<Anchors>
 					<Anchor  point="CENTER" relativePoint="TOP">
 						<Offset>
-							<AbsDimension x="0" y="-25"/>
+							<AbsDimension x="-30" y="-25"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -319,19 +319,51 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
+
 			<Button name="PartyBotRemove" inherits="UIPanelButtonTemplate" text="移除">
-				<Size x="100" y="30" />
+				<Size x="50" y="30" />
 				<Anchors>
 					<Anchor  point="CENTER" relativePoint="TOP">
 						<Offset>
-							<AbsDimension x="0" y="-55"/>
+							<AbsDimension x="-30" y="-55"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 				<Scripts>
 					<OnClick>
 						SubPartyBotRemove(self);
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="PartyBotDie" inherits="UIPanelButtonTemplate" text="杀死">
+				<Size x="50" y="30" />
+				<Anchors>
+					<Anchor  point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="30" y="-25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubSendGuildMessage(self, ".die");
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="PartyBotRevive" inherits="UIPanelButtonTemplate" text="复活">
+				<Size x="50" y="30" />
+				<Anchors>
+					<Anchor  point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="30" y="-55"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubSendGuildMessage(self, ".revive");
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -383,7 +415,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
+
 			<!-- right 1 column -->
 			<Button name="BattleBotAddwarsonghorde" inherits="UIPanelButtonTemplate" text="加战歌BL">
 				<Size x="100" y="30" />
@@ -400,7 +432,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
+
 			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="加阿拉希BL">
 				<Size x="100" y="30" />
 				<Anchors>
@@ -416,7 +448,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
+
 			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="加奥山BL">
 				<Size x="100" y="30" />
 				<Anchors>
@@ -432,8 +464,8 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
-			
+
+
 			<!-- right 2 column -->
 			<Button name="BattleBotAddwarsonghorde" inherits="UIPanelButtonTemplate" text="加战歌LM">
 				<Size x="100" y="30" />
@@ -450,7 +482,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
+
 			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="加阿拉希LM">
 				<Size x="100" y="30" />
 				<Anchors>
@@ -466,7 +498,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
+
 			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="加奥山LM">
 				<Size x="100" y="30" />
 				<Anchors>
@@ -482,7 +514,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
+
 			<!-- right 3 column -->
 			<Button name="BattleGowarsong" inherits="UIPanelButtonTemplate" text="排战歌">
 				<Size x="100" y="30" />
@@ -499,7 +531,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
+
 			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="排阿拉希">
 				<Size x="100" y="30" />
 				<Anchors>
@@ -515,7 +547,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
+
 			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="排奥山">
 				<Size x="100" y="30" />
 				<Anchors>
@@ -531,7 +563,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
+
 			<!-- buttons for character premade gear-->
 			<Button name="searchGear">
 				<Size>
@@ -644,7 +676,7 @@
 						GameTooltip:Hide();
 					</OnLeave>
 				</Scripts>
-			</Button>	
+			</Button>
 			<Button name="searchGear4">
 				<Size>
 					<AbsDimension x="16" y="16"/>
@@ -1457,7 +1489,7 @@
 					</OnLeave>
 				</Scripts>
 			</Button>
-			
+
 			<!-- buttons for character premade SPEC-->
 			<Button name="searchGear">
 				<Size>
@@ -1570,7 +1602,7 @@
 						GameTooltip:Hide();
 					</OnLeave>
 				</Scripts>
-			</Button>	
+			</Button>
 			<Button name="searchSpec4">
 				<Size>
 					<AbsDimension x="16" y="16"/>
@@ -2383,7 +2415,7 @@
 					</OnLeave>
 				</Scripts>
 			</Button>
-             
+
 			<!--  bottom close button -->
         	<Button name="CloseButton" inherits="UIPanelButtonTemplate" text="关闭">
 				<Size x="120" y="30" />
