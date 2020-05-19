@@ -75,6 +75,10 @@ function OpenFrame()
 	vbotsFrame:Show();
 end
 
+function SubSendGuildMessage(self, arg)
+	SendChatMessage(arg, "GUILD", "Common" , 1);
+end
+
 -- minimap button
 local vbotsFrameShown = true -- show frame by default
 local vbotsButtonPosition = 268

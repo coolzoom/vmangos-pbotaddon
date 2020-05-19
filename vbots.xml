@@ -304,12 +304,12 @@
 				</Scripts>
 			</Button>	        
 			<!-- center column -->
-			<Button name="PartyBotClone" inherits="UIPanelButtonTemplate" text="Clone Bot">
-				<Size x="100" y="30" />
+			<Button name="PartyBotClone" inherits="UIPanelButtonTemplate" text="Clone">
+				<Size x="50" y="30" />
 				<Anchors>
 					<Anchor  point="CENTER" relativePoint="TOP">
 						<Offset>
-							<AbsDimension x="0" y="-25"/>
+							<AbsDimension x="-30" y="-25"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -320,18 +320,50 @@
 				</Scripts>
 			</Button>
 			
-			<Button name="PartyBotRemove" inherits="UIPanelButtonTemplate" text="Remove Bot">
-				<Size x="100" y="30" />
+			<Button name="PartyBotRemove" inherits="UIPanelButtonTemplate" text="Remove">
+				<Size x="50" y="30" />
 				<Anchors>
 					<Anchor  point="CENTER" relativePoint="TOP">
 						<Offset>
-							<AbsDimension x="0" y="-55"/>
+							<AbsDimension x="-30" y="-55"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 				<Scripts>
 					<OnClick>
 						SubPartyBotRemove(self);
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="PartyBotDie" inherits="UIPanelButtonTemplate" text="Die">
+				<Size x="50" y="30" />
+				<Anchors>
+					<Anchor  point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="30" y="-25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubSendGuildMessage(self, ".die");
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="PartyBotRevive" inherits="UIPanelButtonTemplate" text="Revive">
+				<Size x="50" y="30" />
+				<Anchors>
+					<Anchor  point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="30" y="-55"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubSendGuildMessage(self, ".revive");
 					</OnClick>
 				</Scripts>
 			</Button>
