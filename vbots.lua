@@ -140,3 +140,19 @@ function vbotsButtonFrame_SetPosition(v)
     vbotsButtonPosition = v;
     vbotsButtonFrame_UpdatePosition();
 end
+
+-- PREMADE GEAR
+function SubPreMadeGearSearch(self)
+	SendChatMessage(CMD_PARTYBOT_GEAR);
+end
+function SubPreMadeGearSet(self, arg)
+	SendChatMessage(CMD_PARTYBOT_GEAR .. arg);
+end
+
+-- PREMADE SPEC
+function SubPreMadeSPECSearch(self)
+	SendChatMessage(CMD_PARTYBOT_SPEC);
+end
+function SubPreMadeSPECSet(self, arg)
+	SendChatMessage(CMD_PARTYBOT_SPEC .. arg);
+end
