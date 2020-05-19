@@ -105,7 +105,7 @@ end
 
 function vbotsButtonFrame_OnEnter()
     GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-    GameTooltip:SetText("vmangos bot command, \n click to open/close, \n right mouse to drag me");
+    GameTooltip:SetText("vmangos 机器人指令台, \n 左键单击打开关闭, \n 右键可拖动");
     GameTooltip:Show();
 end
 

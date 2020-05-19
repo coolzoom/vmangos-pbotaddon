@@ -139,7 +139,7 @@
 				</FontString>
 				
 				<!-- string for character premade gear-->
-				<FontString name="strCPG" inherits="GameFontNormal" text="premade gear options">
+				<FontString name="strCPG" inherits="GameFontNormal" text="预定义装备选项">
 						<Size x="150" y="20" />
 						<Anchors>
 							<Anchor point="TOPLEFT">
@@ -151,7 +151,7 @@
 				</FontString>
 		        
 				<!-- string for character premade spec-->
-				<FontString name="strCPS" inherits="GameFontNormal" text="premade spec options">
+				<FontString name="strCPS" inherits="GameFontNormal" text="预定义天赋选项">
 						<Size x="150" y="20" />
 						<Anchors>
 							<Anchor point="TOPLEFT">
@@ -581,7 +581,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -609,7 +609,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -637,7 +637,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -665,7 +665,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -693,7 +693,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -721,7 +721,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -749,7 +749,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -777,7 +777,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -805,7 +805,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -833,7 +833,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -861,7 +861,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -889,7 +889,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -917,7 +917,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -945,7 +945,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -973,7 +973,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1001,7 +1001,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1029,7 +1029,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1057,7 +1057,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1085,7 +1085,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1113,7 +1113,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1141,7 +1141,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1169,7 +1169,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1197,7 +1197,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1225,7 +1225,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1253,7 +1253,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1281,7 +1281,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1309,7 +1309,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1337,7 +1337,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1365,7 +1365,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1393,7 +1393,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1421,7 +1421,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1449,7 +1449,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set gear");
+						GameTooltip:SetText("设置装备");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1479,7 +1479,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("search available premade SPEC");
+						GameTooltip:SetText("查询可用的预定天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1507,7 +1507,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1535,7 +1535,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1563,7 +1563,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1591,7 +1591,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1619,7 +1619,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1647,7 +1647,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1675,7 +1675,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1703,7 +1703,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1731,7 +1731,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1759,7 +1759,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1787,7 +1787,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1815,7 +1815,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1843,7 +1843,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1871,7 +1871,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1899,7 +1899,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1927,7 +1927,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1955,7 +1955,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1983,7 +1983,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2011,7 +2011,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2039,7 +2039,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2067,7 +2067,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2095,7 +2095,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2123,7 +2123,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2151,7 +2151,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2179,7 +2179,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2207,7 +2207,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2235,7 +2235,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2263,7 +2263,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2291,7 +2291,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2319,7 +2319,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2347,7 +2347,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -2375,7 +2375,7 @@
 					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("set spec");
+						GameTooltip:SetText("设置天赋");
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
