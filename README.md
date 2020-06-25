@@ -13,4 +13,8 @@
 - enable it from lower left corner the login screen
 
 - for bots premade gear and spec, please select bots, and click the question mark to retrive the available gear/spec, then click the number to apply the gear/spec set
-Notice, you have to be GM level 6 to use all commands
+
+
+# other notice
+- Notice, you have to be GM level 6 to use all commands
+- I'm not good at addon, i just added 32 buttons for each, if you know there is a better way to set the gear/spec template welcome to make PR
