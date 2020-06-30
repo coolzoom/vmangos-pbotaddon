@@ -212,7 +212,7 @@
 				</Scripts>
 			</Button>
 			<!-- left 2 column -->
-			<Button name="PartyBotAddRouge" inherits="UIPanelButtonTemplate" text="Add Rouge">
+			<Button name="PartyBotAddRouge" inherits="UIPanelButtonTemplate" text="Add Rogue">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -223,7 +223,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						SubPartyBotAdd(self, "rouge");
+						SubPartyBotAdd(self, "rogue");
 					</OnClick>
 				</Scripts>
 			</Button>

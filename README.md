@@ -18,3 +18,7 @@
 # other notice
 - Notice, you have to be GM level 6 to use all commands
 - I'm not good at addon, i just added 32 buttons for each, if you know there is a better way to set the gear/spec template welcome to make PR
+- partybot add paladin is for alliance only, shaman is for horde only, you can change the source PlayerBotMgr.cpp line 806 and 814
+
+else if (option == "paladin" && pPlayer->GetTeam() == ALLIANCE)
+else if (option == "shaman" && pPlayer->GetTeam() == HORDE)
