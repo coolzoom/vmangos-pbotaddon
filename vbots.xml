@@ -223,7 +223,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						SubPartyBotAdd(self, "rouge");
+						SubPartyBotAdd(self, "rogue");
 					</OnClick>
 				</Scripts>
 			</Button>
