@@ -1,6 +1,6 @@
 # vmangos-pbotaddon
-  just a very simple bot ui
-  if you close it, re-open from main menu(esc),
+  just a very simple bot ui for vmangos, 
+  if you close it, re-open from main menu(esc), or the vmangos icon beside the minimap.
   
   vmangos core is Progressive Vanilla Core aimed at all versions from 1.2 to 1.12
   https://github.com/vmangos/core
@@ -21,4 +21,5 @@
 - partybot add paladin is for alliance only, shaman is for horde only, you can change the source PlayerBotMgr.cpp line 806 and 814
 
 else if (option == "paladin" && pPlayer->GetTeam() == ALLIANCE)
+
 else if (option == "shaman" && pPlayer->GetTeam() == HORDE)
