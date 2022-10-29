@@ -1,5 +1,5 @@
 <Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="Frame.lua" />
+	<Script file="vbots.lua" />
 	<Frame name="vbotsButtonFrame" parent="Minimap" enableMouse="true" hidden="false" frameStrata="LOW">
 		<Size>
 			<AbsDimension x="32" y="32"/>
@@ -31,9 +31,9 @@
 						this:RegisterForDrag("RightButton");
 						this.dragme = false;
 					</OnLoad>
-					<OnDragStart>
+					<OnDragStart> 
 						this.dragme = true;
-					</OnDragStart>
+					</OnDragStart> 
 					<OnDragStop>
 						this.dragme = false;
 					</OnDragStop>
@@ -65,17 +65,29 @@
 		</Scripts>
 	</Frame>
 
-	<Frame name="vbotsFrame" parent="UIParent" toplevel="true" enableMouse="true">
+	<Frame name="vbotsFrame" parent="UIParent" toplevel="true" enableMouse="true" movable="true">
 		<Size x="770" y="200" />
 		<Anchors>
-			<Anchor point="BOTTOMRIGHT">
+			<Anchor point="BOTTOMRIGHT" relativeTo="UIParent">
 				<Offset>
 					<AbsDimension x="-90" y="90"/>
 				</Offset>
 			</Anchor>
 		</Anchors>
 
-		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border"  tile="true">
+		<Scripts>
+			<OnLoad>
+				this:RegisterForDrag("LeftButton");
+			</OnLoad>
+			<OnDragStart>
+				this:StartMoving();
+			</OnDragStart>
+			<OnDragStop>
+				this:StopMovingOrSizing();
+			</OnDragStop>
+		</Scripts>
+
+		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
 			<BackgroundInsets>
 				<AbsInset left="11" right="12" top="12" bottom="11" />
 			</BackgroundInsets>
@@ -86,29 +98,18 @@
 				<AbsValue val="32" />
 			</EdgeSize>
 		</Backdrop>
+
 		<!-- overlay labels layer for below buttons frame-->
-        <Layers>
-		    <!-- string for buttons -->
+		<Layers>
+		 <!-- string for buttons -->
 			<Layer level="OVERLAY">
-			    <!-- upper left -->
+			 <!-- upper left -->
 				<FontString name="PartyBot" inherits="GameFontNormal" text="组队机器人命令">
 						<Size x="220" y="20" />
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="0" y="8"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-				</FontString>
-
-			    <!-- middle -->
-				<FontString name="partybotsetrole" inherits="GameFontNormal" text="职责">
-						<Size x="220" y="20" />
-						<Anchors>
-							<Anchor  point="CENTER" relativePoint="TOP">
-								<Offset>
-									<AbsDimension x="0" y="-75"/>
+									<AbsDimension x="50" y="8"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -120,53 +121,341 @@
 						<Anchors>
 							<Anchor point="TOPRIGHT">
 								<Offset>
-									<AbsDimension x="0" y="8"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-				</FontString>
-
-				<!-- bottom right -->
-				<FontString name="AddBot" inherits="GameFontNormal" text="vmangos bot addon by coolzoom">
-						<Size x="220" y="20" />
-						<Anchors>
-							<Anchor point="BOTTOMRIGHT">
-								<Offset>
-									<AbsDimension x="0" y="5"/>
+									<AbsDimension x="-50" y="8"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
 				</FontString>
 
 				<!-- string for character premade gear-->
-				<FontString name="strCPG" inherits="GameFontNormal" text="预定义装备选项">
+				<FontString name="strCPG" inherits="GameFontNormal" text="60级开荒装备/天赋">
 						<Size x="150" y="20" />
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="10" y="-110"/>
+									<AbsDimension x="-35" y="-120"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
 				</FontString>
 
 				<!-- string for character premade spec-->
-				<FontString name="strCPS" inherits="GameFontNormal" text="预定义天赋选项">
+				<FontString name="strCPS" inherits="GameFontNormal" text="P6毕业装备/天赋">
 						<Size x="150" y="20" />
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="10" y="-140"/>
+									<AbsDimension x="-35" y="-150"/>
 								</Offset>
 							</Anchor>
 						</Anchors>
 				</FontString>
 			</Layer>
 		</Layers>
+
+
 		<!-- buttons frame -->
 		<Frames>
+			<!-- preraid gear/spec buttons -->
+			<Button name="PreRaidGearSpecHelp">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-268" y="-130"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\vbots\img\Button-About-Normal"/>
+				<PushedTexture file="Interface\AddOns\vbots\img\Button-About-Pushed"/>
+				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+				<Scripts>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("使用预设的团本前装备和天赋。");
+						GameTooltip:AddLine("当机器人低于60级时，点击右侧按钮会先将机器人升至60级，再设置装备和天赋。");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<!-- preraid gear/spec buttons -->
+			<Button name="PartyBotSetTankPreraid" inherits="UIPanelButtonTemplate" text="坦克">
+				<Size x="80" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-215" y="-130"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubPartyBotSetRole(self,"tank");
+						SubPreMadeGearSet(self, "tank-preraid-bis");
+						SubPreMadeSPECSet(self, "protection-pve");
+						SubPreMadeSPECSet(self, "feral-bear-pve");
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("防战-防骑-野性德");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<Button name="PartyBotSetHealerPreraid" inherits="UIPanelButtonTemplate" text="治疗">
+				<Size x="80" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-135" y="-130"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubPartyBotSetRole(self,"healer");
+						SubPreMadeGearSet(self, "heal-preraid-bis");
+						SubPreMadeSPECSet(self, "holy-pve");
+						SubPreMadeSPECSet(self, "resto-pve");
+						SubPreMadeSPECSet(self, "resto-swiftmend-pve");
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("圣骑-神牧-恢复萨-恢复德");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>		
+
+			<Button name="PartyBotSetMDPSPreraid" inherits="UIPanelButtonTemplate" text="DPS">
+				<Size x="80" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-55" y="-130"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubPartyBotSetRole(self,"dps");
+						SubPreMadeGearSet(self, "dps-preraid-bis");
+						SubPreMadeGearSet(self, "caster-dps-preraid-bis");
+						SubPreMadeSPECSet(self, "fury-dw-pve");
+						SubPreMadeSPECSet(self, "retribution-pve");
+						SubPreMadeSPECSet(self, "combat-swords-pve");
+						SubPreMadeSPECSet(self, "mm-sv-pve");
+						SubPreMadeSPECSet(self, "shadow-pve");
+						SubPreMadeSPECSet(self, "elemental-pve");
+						SubPreMadeSPECSet(self, "arcane-power-frost-pve");
+						SubPreMadeSPECSet(self, "ds-ruin-pve");
+						SubPreMadeSPECSet(self, "balance-pve");
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("近战：狂暴战-惩戒骑-战斗贼\n远程：射击生存猎-暗牧-元素萨-奥冰法-恶魔毁灭术-平衡德");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>		
+
+			<Button name="LevelDown1" inherits="UIPanelButtonTemplate" text="降1级">
+				<Size x="80" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="25" y="-130"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubLevelDown(self,"-1");
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("若玩家意外升级，可点击按钮降1级");
+						GameTooltip:AddLine("对选中的机器人、NPC和怪物也有效");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<!-- phase6 gear/spec buttons -->
+			<Button name="P6GearSpecHelp">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-268" y="-160"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\vbots\img\Button-About-Normal"/>
+				<PushedTexture file="Interface\AddOns\vbots\img\Button-About-Pushed"/>
+				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+				<Scripts>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("使用预设的P6毕业装备和天赋。");
+						GameTooltip:AddLine("当机器人低于60级时，点击右侧按钮会先将机器人升至60级，再设置装备和天赋。");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<!-- phase6 gear/spec buttons -->
+			<Button name="PartyBotSetTankP6" inherits="UIPanelButtonTemplate" text="坦克">
+				<Size x="80" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-215" y="-160"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubPartyBotSetRole(self,"tank");
+						SubPreMadeGearSet(self, "tank-phase6-bis");
+						SubPreMadeSPECSet(self, "protection-pve");
+						SubPreMadeSPECSet(self, "feral-bear-pve");
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("防战-防骑-野性德");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<Button name="PartyBotSetHealerP6" inherits="UIPanelButtonTemplate" text="治疗">
+				<Size x="80" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-135" y="-160"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubPartyBotSetRole(self,"healer");
+						SubPreMadeGearSet(self, "heal-phase6-bis");
+						SubPreMadeSPECSet(self, "holy-pve");
+						SubPreMadeSPECSet(self, "resto-pve");
+						SubPreMadeSPECSet(self, "resto-swiftmend-pve");
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("圣骑-神牧-恢复萨-恢复德");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>		
+
+			<Button name="PartyBotSetMDPSP6" inherits="UIPanelButtonTemplate" text="DPS">
+				<Size x="80" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-55" y="-160"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubPartyBotSetRole(self,"dps");
+						SubPreMadeGearSet(self, "dps-phase6-bis");
+						SubPreMadeGearSet(self, "caster-dps-phase6-bis");
+						SubPreMadeSPECSet(self, "fury-dw-pve");
+						SubPreMadeSPECSet(self, "retribution-pve");
+						SubPreMadeSPECSet(self, "combat-swords-pve");
+						SubPreMadeSPECSet(self, "mm-sv-pve");
+						SubPreMadeSPECSet(self, "shadow-pve");
+						SubPreMadeSPECSet(self, "elemental-pve");
+						SubPreMadeSPECSet(self, "arcane-power-frost-pve");
+						SubPreMadeSPECSet(self, "ds-ruin-pve");
+						SubPreMadeSPECSet(self, "balance-pve");
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("近战：狂暴战-惩戒骑-战斗贼\n远程：射击生存猎-暗牧-元素萨-奥冰法-恶魔毁灭术-平衡德");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>		
+
+			<Button name="LevelDown1" inherits="UIPanelButtonTemplate" text="降5级">
+				<Size x="80" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="25" y="-160"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						SubLevelDown(self,"-5");
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("若玩家意外升级，可点击按钮降5级");
+						GameTooltip:AddLine("对选中的机器人、NPC和怪物也有效");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
 			<!-- left 1 column -->
-			<Button name="PartyBotAddWarrior" inherits="UIPanelButtonTemplate" text="加战士">
+			<Button name="PartyBotAddWarrior" inherits="UIPanelButtonTemplate" text="添加战士">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -179,9 +468,18 @@
 					<OnClick>
 						SubPartyBotAdd(self, "warrior");
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("添加" .. UnitLevel("player") .. "级战士");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-			<Button name="PartyBotAddPaladin" inherits="UIPanelButtonTemplate" text="加圣骑">
+			<Button name="PartyBotAddPaladin" inherits="UIPanelButtonTemplate" text="添加圣骑士">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -194,9 +492,18 @@
 					<OnClick>
 						SubPartyBotAdd(self, "paladin");
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("添加" .. UnitLevel("player") .. "级圣骑士");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-			<Button name="PartyBotAddHunter" inherits="UIPanelButtonTemplate" text="加猎人">
+			<Button name="PartyBotAddHunter" inherits="UIPanelButtonTemplate" text="添加猎人">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -209,15 +516,24 @@
 					<OnClick>
 						SubPartyBotAdd(self, "hunter");
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("添加" .. UnitLevel("player") .. "级猎人");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
 			<!-- left 2 column -->
-			<Button name="PartyBotAddRouge" inherits="UIPanelButtonTemplate" text="加盗贼">
+			<Button name="PartyBotAddRouge" inherits="UIPanelButtonTemplate" text="添加盗贼">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="120" y="-20"/>
+							<AbsDimension x="110" y="-20"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -225,14 +541,23 @@
 					<OnClick>
 						SubPartyBotAdd(self, "rogue");
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("添加" .. UnitLevel("player") .. "级盗贼");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-			<Button name="PartyBotAddPriest" inherits="UIPanelButtonTemplate" text="加牧师">
+			<Button name="PartyBotAddPriest" inherits="UIPanelButtonTemplate" text="添加牧师">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="120" y="-50"/>
+							<AbsDimension x="110" y="-50"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -240,14 +565,23 @@
 					<OnClick>
 						SubPartyBotAdd(self, "priest");
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("添加" .. UnitLevel("player") .. "级牧师");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-			<Button name="PartyBotAddShaman" inherits="UIPanelButtonTemplate" text="加萨满">
+			<Button name="PartyBotAddShaman" inherits="UIPanelButtonTemplate" text="添加萨满">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="120" y="-80"/>
+							<AbsDimension x="110" y="-80"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -255,15 +589,24 @@
 					<OnClick>
 						SubPartyBotAdd(self, "shaman");
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("添加" .. UnitLevel("player") .. "级萨满");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
-			</Button>
+			</Button>			
 			<!-- left 3 column -->
-			<Button name="PartyBotAddMage" inherits="UIPanelButtonTemplate" text="加法师">
+			<Button name="PartyBotAddMage" inherits="UIPanelButtonTemplate" text="添加法师">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="230" y="-20"/>
+							<AbsDimension x="210" y="-20"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -271,14 +614,23 @@
 					<OnClick>
 						SubPartyBotAdd(self, "mage");
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("添加" .. UnitLevel("player") .. "级法师");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-			<Button name="PartyBotAddWarlock" inherits="UIPanelButtonTemplate" text="加术士">
+			<Button name="PartyBotAddWarlock" inherits="UIPanelButtonTemplate" text="添加术士">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="230" y="-50"/>
+							<AbsDimension x="210" y="-50"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -286,14 +638,23 @@
 					<OnClick>
 						SubPartyBotAdd(self, "warlock");
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("添加" .. UnitLevel("player") .. "级术士");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-			<Button name="PartyBotAddDruid" inherits="UIPanelButtonTemplate" text="加小德">
+			<Button name="PartyBotAddDruid" inherits="UIPanelButtonTemplate" text="添加德鲁伊">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
-							<AbsDimension x="230" y="-80"/>
+							<AbsDimension x="210" y="-80"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -301,15 +662,24 @@
 					<OnClick>
 						SubPartyBotAdd(self, "druid");
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("添加" .. UnitLevel("player") .. "级德鲁伊");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
-			</Button>
+			</Button>	 
 			<!-- center column -->
 			<Button name="PartyBotClone" inherits="UIPanelButtonTemplate" text="克隆">
 				<Size x="50" y="30" />
 				<Anchors>
-					<Anchor  point="CENTER" relativePoint="TOP">
+					<Anchor point="CENTER" relativePoint="TOP">
 						<Offset>
-							<AbsDimension x="-30" y="-25"/>
+							<AbsDimension x="-50" y="-35"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -317,15 +687,25 @@
 					<OnClick>
 						SubPartyBotClone(self);
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("复制选中的玩家或机器人");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-
-			<Button name="PartyBotRemove" inherits="UIPanelButtonTemplate" text="移除">
+			
+			<Button name="PartyBotRemove" inherits="UIPanelButtonTemplate" text="删除">
 				<Size x="50" y="30" />
 				<Anchors>
-					<Anchor  point="CENTER" relativePoint="TOP">
+					<Anchor point="CENTER" relativePoint="TOP">
 						<Offset>
-							<AbsDimension x="-30" y="-55"/>
+							<!-- <AbsDimension x="-30" y="-55"/> -->
+							<AbsDimension x="-50" y="-65"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -333,91 +713,20 @@
 					<OnClick>
 						SubPartyBotRemove(self);
 					</OnClick>
-				</Scripts>
-			</Button>
-
-			<Button name="PartyBotDie" inherits="UIPanelButtonTemplate" text="杀死">
-				<Size x="50" y="30" />
-				<Anchors>
-					<Anchor  point="CENTER" relativePoint="TOP">
-						<Offset>
-							<AbsDimension x="30" y="-25"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						SubSendGuildMessage(self, ".die");
-					</OnClick>
-				</Scripts>
-			</Button>
-
-			<Button name="PartyBotRevive" inherits="UIPanelButtonTemplate" text="复活">
-				<Size x="50" y="30" />
-				<Anchors>
-					<Anchor  point="CENTER" relativePoint="TOP">
-						<Offset>
-							<AbsDimension x="30" y="-55"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						SubSendGuildMessage(self, ".revive");
-					</OnClick>
-				</Scripts>
-			</Button>
-							<!-- center column lower small button-->
-			<Button name="PartyBotSetDPS" inherits="UIPanelButtonTemplate" text="输出">
-				<Size x="30" y="20" />
-				<Anchors>
-					<Anchor  point="CENTER" relativePoint="TOP">
-						<Offset>
-							<AbsDimension x="0" y="-95"/><!-- center-->
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						SubPartyBotSetRole(self,"dps");
-					</OnClick>
-				</Scripts>
-			</Button>
-
-			<Button name="PartyBotSetTank" inherits="UIPanelButtonTemplate" text="坦克">
-				<Size x="30" y="20" />
-				<Anchors>
-					<Anchor  point="CENTER" relativePoint="TOP">
-						<Offset>
-							<AbsDimension x="-30" y="-95"/> <!-- left -->
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						SubPartyBotSetRole(self,"tank");
-					</OnClick>
-				</Scripts>
-			</Button>
-
-			<Button name="PartyBotSetHealer" inherits="UIPanelButtonTemplate" text="治疗">
-				<Size x="30" y="20" />
-				<Anchors>
-					<Anchor  point="CENTER" relativePoint="TOP">
-						<Offset>
-							<AbsDimension x="30" y="-95"/> <!-- right -->
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						SubPartyBotSetRole(self,"healer");
-					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("删除选中的机器人");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
 
 			<!-- right 1 column -->
-			<Button name="BattleBotAddwarsonghorde" inherits="UIPanelButtonTemplate" text="加战歌BL">
+			<Button name="BattleBotAddwarsonghorde" inherits="UIPanelButtonTemplate" text="战歌峡谷部落">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
@@ -428,12 +737,21 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						SubBattleBotAdd(self, "warsong", "horde");
+						SubBattleBotAdd(self, "warsong", "horde", UnitLevel("player"));
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("战歌峡谷添加" .. UnitLevel("player") .. "级部落机器人");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-
-			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="加阿拉希BL">
+			
+			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="阿拉希部落">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
@@ -444,12 +762,21 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						SubBattleBotAdd(self, "arathi", "horde");
+						SubBattleBotAdd(self, "arathi", "horde", UnitLevel("player"));
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("阿拉希盆地添加" .. UnitLevel("player") .. "级部落机器人");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
 
-			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="加奥山BL">
+			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="奥特拉克部落">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
@@ -460,68 +787,103 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						SubBattleBotAdd(self, "alterac", "horde");
+						SubBattleBotAdd(self, "alterac", "horde", UnitLevel("player"));
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("奥特兰克山谷添加" .. UnitLevel("player") .. "级部落机器人");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-
 
 			<!-- right 2 column -->
-			<Button name="BattleBotAddwarsonghorde" inherits="UIPanelButtonTemplate" text="加战歌LM">
+			<Button name="BattleBotAddwarsonghorde" inherits="UIPanelButtonTemplate" text="战歌峡谷联盟">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
 						<Offset>
-							<AbsDimension x="-120" y="-20"/>
+							<AbsDimension x="-110" y="-20"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						SubBattleBotAdd(self, "warsong", "alliance");
+						SubBattleBotAdd(self, "warsong", "alliance", UnitLevel("player"));
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("战歌峡谷添加" .. UnitLevel("player") .. "级联盟机器人");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-
-			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="加阿拉希LM">
+			
+			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="阿拉希联盟">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
 						<Offset>
-							<AbsDimension x="-120" y="-50"/>
+							<AbsDimension x="-110" y="-50"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						SubBattleBotAdd(self, "arathi", "alliance");
+						SubBattleBotAdd(self, "arathi", "alliance", UnitLevel("player"));
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("阿拉希盆地添加" .. UnitLevel("player") .. "级联盟机器人");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-
-			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="加奥山LM">
+			
+			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="奥特莱克联盟">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
 						<Offset>
-							<AbsDimension x="-120" y="-80"/>
+							<AbsDimension x="-110" y="-80"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						SubBattleBotAdd(self, "alterac", "alliance");
+						SubBattleBotAdd(self, "alterac", "alliance", UnitLevel("player"));
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("奥特兰克山谷添加" .. UnitLevel("player") .. "级联盟机器人");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-
+			
 			<!-- right 3 column -->
-			<Button name="BattleGowarsong" inherits="UIPanelButtonTemplate" text="排战歌">
+			<Button name="BattleGowarsong" inherits="UIPanelButtonTemplate" text="战歌峡谷排队">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
 						<Offset>
-							<AbsDimension x="-230" y="-20"/>
+							<AbsDimension x="-210" y="-20"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -529,15 +891,24 @@
 					<OnClick>
 						SubBattleGo(self, "warsong");
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("≥20级可进");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-
-			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="排阿拉希">
+			
+			<Button name="BattleBotAddarathihorde" inherits="UIPanelButtonTemplate" text="阿拉希排队">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
 						<Offset>
-							<AbsDimension x="-230" y="-50"/>
+							<AbsDimension x="-210" y="-50"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -545,15 +916,24 @@
 					<OnClick>
 						SubBattleGo(self, "arathi");
 					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("≥30级可进");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
 				</Scripts>
 			</Button>
-
-			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="排奥山">
+			
+			<Button name="BattleBotAddalterachorde" inherits="UIPanelButtonTemplate" text="奥特莱克排队">
 				<Size x="100" y="30" />
 				<Anchors>
 					<Anchor point="TOPRIGHT">
 						<Offset>
-							<AbsDimension x="-230" y="-80"/>
+							<AbsDimension x="-210" y="-80"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -561,927 +941,10 @@
 					<OnClick>
 						SubBattleGo(self, "alterac");
 					</OnClick>
-				</Scripts>
-			</Button>
-
-			<!-- buttons for character premade gear-->
-			<Button name="searchGear">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="20" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Button-About-Normal"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Button-About-Pushed"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSearch(self);
-					</OnClick>
 					<OnEnter>
 					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("查询可用预定装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear1">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="40" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N1"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N1"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,1);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear2">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="60" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N2"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N2"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,2);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear3">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="80" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N3"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N3"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,3);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear4">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="100" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N4"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N4"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,4);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear5">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="120" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N5"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N5"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,5);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear6">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="140" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N6"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N6"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,6);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear7">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="160" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N7"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N7"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,7);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear8">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="180" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N8"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N8"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,8);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear9">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="200" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N9"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N9"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,9);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear10">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="220" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N10"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N10"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,10);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear11">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="240" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N11"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N11"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,11);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear12">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="260" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N12"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N12"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,12);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear13">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="280" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N13"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N13"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,13);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear14">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="300" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N14"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N14"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,14);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear15">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="320" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N15"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N15"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,15);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear16">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="340" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N16"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N16"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,16);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear17">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="360" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N17"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N17"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,17);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear18">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="380" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N18"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N18"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,18);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear19">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="400" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N19"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N19"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,19);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear20">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="420" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N20"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N20"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,20);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear21">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="440" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N21"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N21"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,21);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear22">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="460" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N22"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N22"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,22);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear23">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="480" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N23"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N23"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,23);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear24">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="500" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N24"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N24"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,24);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear25">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="520" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N25"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N25"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,25);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear26">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="540" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N26"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N26"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,26);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear27">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="560" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N27"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N27"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,27);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear28">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="580" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N28"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N28"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,28);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear29">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="600" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N29"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N29"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,29);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear30">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="620" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N30"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N30"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,30);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear31">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="640" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N31"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N31"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,31);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchGear32">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="660" y="-130"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N32"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N32"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeGearSet(self,32);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置装备");
+						GameTooltip:SetText("≥50级可进");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
 						GameTooltip:Show();
 					</OnEnter>
 					<OnLeave>
@@ -1490,934 +953,8 @@
 				</Scripts>
 			</Button>
 
-			<!-- buttons for character premade SPEC-->
-			<Button name="searchGear">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="20" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Button-About-Normal"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Button-About-Pushed"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSearch(self);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("查询可用的预定天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-						<Button name="searchSpec1">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="40" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N1"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N1"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,1);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec2">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="60" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N2"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N2"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,2);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec3">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="80" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N3"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N3"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,3);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec4">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="100" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N4"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N4"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,4);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec5">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="120" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N5"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N5"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,5);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec6">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="140" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N6"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N6"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,6);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec7">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="160" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N7"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N7"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,7);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec8">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="180" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N8"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N8"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,8);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec9">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="200" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N9"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N9"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,9);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec10">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="220" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N10"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N10"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,10);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec11">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="240" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N11"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N11"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,11);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec12">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="260" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N12"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N12"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,12);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec13">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="280" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N13"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N13"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,13);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec14">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="300" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N14"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N14"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,14);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec15">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="320" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N15"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N15"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,15);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec16">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="340" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N16"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N16"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,16);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec17">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="360" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N17"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N17"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,17);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec18">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="380" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N18"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N18"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,18);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec19">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="400" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N19"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N19"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,19);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec20">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="420" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N20"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N20"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,20);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec21">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="440" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N21"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N21"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,21);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec22">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="460" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N22"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N22"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,22);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec23">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="480" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N23"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N23"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,23);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec24">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="500" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N24"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N24"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,24);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec25">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="520" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N25"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N25"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,25);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec26">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="540" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N26"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N26"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,26);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec27">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="560" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N27"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N27"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,27);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec28">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="580" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N28"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N28"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,28);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec29">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="600" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N29"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N29"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,29);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec30">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="620" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N30"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N30"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,30);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec31">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="640" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N31"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N31"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,31);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="searchSpec32">
-				<Size>
-					<AbsDimension x="16" y="16"/>
-				</Size>
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset>
-							<AbsDimension x="660" y="-160"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<NormalTexture file="Interface\AddOns\vbots\img\Icon-N32"/>
-				<PushedTexture file="Interface\AddOns\vbots\img\Icon-N32"/>
-				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-				<Scripts>
-					<OnClick>
-						SubPreMadeSPECSet(self,32);
-					</OnClick>
-					<OnEnter>
-					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
-						GameTooltip:SetText("设置天赋");
-						GameTooltip:Show();
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-
-			<!--  bottom close button -->
-        	<Button name="CloseButton" inherits="UIPanelButtonTemplate" text="关闭">
+			<!-- bottom close button -->
+ 	<Button name="CloseButton" inherits="UIPanelButtonTemplate" text="关闭">
 				<Size x="120" y="30" />
 				<Anchors>
 					<Anchor point="BOTTOM">
@@ -2434,18 +971,298 @@
 			</Button>
 		</Frames>
 	</Frame>
-	<Button name="AttributeOptions" inherits="GameMenuButtonTemplate" parent="GameMenuFrame" text="VBOTS">
+
+
+
+
+
+
+	<!-- combat control frame  -->
+	<Frame name="vbotsCombatFrame" parent="UIParent" toplevel="true" enableMouse="true" movable="true">
+		<Size x="310" y="90" />
 		<Anchors>
-			<Anchor point="CENTER" relativePoint="BOTTOM">
+			<Anchor point="CENTER" relativeTo="UIParent">
 				<Offset>
-					<AbsDimension x="0" y="10"/>
+					<AbsDimension x="0" y="0"/>
 				</Offset>
 			</Anchor>
 		</Anchors>
+
 		<Scripts>
-			<OnClick>
-				OpenFrame();
-			</OnClick>
+			<OnLoad>
+				this:RegisterForDrag("LeftButton");
+			</OnLoad>
+			<OnDragStart>
+				this:StartMoving();
+			</OnDragStart>
+			<OnDragStop>
+				this:StopMovingOrSizing();
+			</OnDragStop>
 		</Scripts>
-	</Button>
+
+		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+
+		<!-- overlay labels layer for below buttons frame-->
+		<Layers>
+		 <!-- string for buttons -->
+			<Layer level="OVERLAY">
+			</Layer>
+		</Layers>
+
+
+		<!-- buttons frame -->
+		<Frames>
+			<!-- preraid gear/spec buttons -->
+			<Button name="PreRaidGearSpecHelp">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-160" y="-15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\vbots\img\Button-About-Normal"/>
+				<PushedTexture file="Interface\AddOns\vbots\img\Button-About-Pushed"/>
+				<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+				<Scripts>
+					<OnLoad>
+						this:RegisterForClicks("RightButtonUp");
+					</OnLoad>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("机器人战斗控制面板");
+						GameTooltip:AddLine("右键：关闭面板");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+					<OnClick>
+						vbotsCombatFrame_OnClick();
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="AllBotAttack" inherits="UIPanelButtonTemplate" text="全体进攻">
+				<Size x="70" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-105" y="-30"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						AllPartyBotAttack(self);
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("全体机器人进攻选中的目标");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<Button name="AllBotCombatStop" inherits="UIPanelButtonTemplate" text="脱离战斗">
+				<Size x="70" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-105" y="-60"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						AllPartyBotCombatStop(self);
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("全体机器人脱离战斗，并向玩家移动");
+						GameTooltip:AddLine("猎人和术士的宝宝无法脱战，会导致部分机器人脱战失败");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<Button name="AllBotPause" inherits="UIPanelButtonTemplate" text="原地待命">
+				<Size x="70" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-35" y="-30"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						AllPartyBotPause(self);
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("全体机器人原地待命1小时");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<Button name="AllBotUnPause" inherits="UIPanelButtonTemplate" text="取消待命">
+				<Size x="70" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="-35" y="-60"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						AllPartyBotUnPause(self);
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("取消全体机器人的原地待命状态");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<Button name="RespawnNPC" inherits="UIPanelButtonTemplate" text="刷新怪物">
+				<Size x="70" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="35" y="-30"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						RespawnNPC(self);
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("刷新怪物、NPC、草药、矿石和宝箱");
+						GameTooltip:AddLine("若选中某个怪物或NPC的尸体，只会刷新该怪物或NPC");
+						GameTooltip:AddLine("若没有选中目标，则刷新当前范围内的所有怪物、NPC、草药、矿石和宝箱");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<Button name="MassResurrection" inherits="UIPanelButtonTemplate" text="群体复活">
+				<Size x="70" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="35" y="-60"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MassResurrection(self);
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("满血复活所有阵亡的玩家和机器人 (战斗中可用)");
+						GameTooltip:AddLine("安度因·乌瑞恩：你们的血量每时每刻都在减少，而我的好兄弟可是无穷无尽...");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<Button name="AllBotPause" inherits="UIPanelButtonTemplate" text="GM岛">
+				<Size x="70" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="105" y="-30"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						GMIsle(self);
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("传送到GM岛");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+			<Button name="InstantKill" inherits="UIPanelButtonTemplate" text="杀死目标">
+				<Size x="70" y="30" />
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="105" y="-60"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						InstantKill(self);
+					</OnClick>
+					<OnEnter>
+					    GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+						GameTooltip:SetText("对选中的目标造成1000万点伤害");
+						GameTooltip:AddLine("你们这是自寻死路！");
+						GameTooltipTextLeft1:SetTextColor(1, 1, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+
+		</Frames>
+	</Frame>
+
 </Ui>
